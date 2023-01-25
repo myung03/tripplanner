@@ -28,3 +28,12 @@ top of things when on vacation. Options like Google Docs or Notion are great, bu
 oftentimes difficult to set up which can feel overwhelming at times. By creating an application that provides you 
 a structured and consistent template that you can enter all your trip details in, I hope to make planning for myself and 
 others just a little bit easier so people can simply enjoy their vacations rather than stressing about the logistics. 
+
+## User Stories 
+
+As a user, I want to be able to...
+- create a new trip to add to my list of trips 
+- add an agenda to my list of agendas for a given trip
+- have a finance tracker that gives me a breakdown of my budget, how much I've spent so far, and the difference between the two
+- edit my budget and amount spent so far 
+- view my previous trips and make notes about them 
