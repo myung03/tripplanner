@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Trips {
 
+    //TODO: method that searches up and return trip
     private ArrayList<Trip> trips;
 
     public Trips() {
