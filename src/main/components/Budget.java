@@ -1,4 +1,4 @@
-package model;
+package components;
 
 //The budget of a trip
 public class Budget {
@@ -9,6 +9,8 @@ public class Budget {
 
     private double remaining;
 
+    //TODO -> create an array of transactions to display? or something to keep track of transactions + their type
+
     //REQUIRES: Budget must be > 100$
     //EFFECTS: Creates a new Budget instance; budget is set to given number and spent is set to 0
     public Budget(double budget) {
@@ -16,10 +18,12 @@ public class Budget {
         this.spent = 0;
     }
 
+    //EFFECTS: Return your budget for trip
     public double getBudget() {
         return this.budget;
     }
 
+    //EFFECTS: Return your current spending amount for trip;
     public double getSpent() {
         return this.spent;
     }
@@ -33,22 +37,22 @@ public class Budget {
     //REQUIRES: amount >= 0
     //MODIFIES: this
     //EFFECTS: adds amount to budget
-    public double addBudget(double amount) {
-        return 0;
+    public void addBudget(double amount) {
+        this.budget += amount;
     }
 
     //REQUIRES: amount >= 0, and less than current budget
     //MODIFIES: this
     //EFFECTS: lowers budget by amount
-    public double lowerBudget(double amount) {
-        return 0;
+    public void lowerBudget(double amount) {
+        this.budget -= amount;
     }
 
     //REQUIRES: amount >= 0
     //MODIFIES: this
     //EFFECTS: adds amount to spent
-    public double addSpent(double amount) {
-        return 0;
+    public void addSpent(double amount) {
+        this.spent += amount;
     }
 
 }
