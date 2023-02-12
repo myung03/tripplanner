@@ -20,22 +20,37 @@ public class Budget {
     //REQUIRES: amount >= 0
     //MODIFIES: this
     //EFFECTS: adds amount to budget
-    public void addBudget(double amount) {
-        this.budget += amount;
+    public Boolean addBudget(double amount) {
+        if (amount <= 0) {
+            return false;
+        } else {
+            this.budget += amount;
+            return true;
+        }
     }
 
     //REQUIRES: amount >= 0, and less than current budget
     //MODIFIES: this
     //EFFECTS: lowers budget by amount
-    public void lowerBudget(double amount) {
-        this.budget -= amount;
+    public Boolean lowerBudget(double amount) {
+        if (amount <= 0 || budget - amount <= 0) {
+            return false;
+        } else {
+            this.budget -= amount;
+            return true;
+        }
     }
 
     //REQUIRES: amount >= 0
     //MODIFIES: this
     //EFFECTS: adds amount to spent
-    public void addSpent(double amount) {
-        this.spent += amount;
+    public Boolean addSpent(double amount) {
+        if (amount <= 0) {
+            return false;
+        } else {
+            this.spent += amount;
+            return true;
+        }
     }
 
 
