@@ -65,7 +65,7 @@ public class TripApp {
     }
 
     //MODIFIES: this
-    //EFFECTS; processes user command
+    //EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("a")) {
             createTrip();
@@ -80,6 +80,8 @@ public class TripApp {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates a trip if one does not already exist
     private void createTrip() {
         if (current == null) {
             current = new Trip("", "", "", "", 0.0);
@@ -97,6 +99,9 @@ public class TripApp {
 
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: changes the name of the current trip
     private void selectName() {
         String selection = "";
         System.out.println("Enter a name for your trip.");
@@ -108,6 +113,8 @@ public class TripApp {
         current.changeName(selection);
     }
 
+    //MODIFIES: this
+    //EFFECTS: changes the location of the current trip
     private void selectLocation() {
         String selection = "";
         System.out.println("Enter a location for your trip.");
@@ -119,6 +126,8 @@ public class TripApp {
         current.changeLocation(selection);
     }
 
+    //MODIFIES: this
+    //EFFECTS: changes the start date of the current trip
     private void selectStartDate() {
         String selection = "";
         System.out.println("Enter a start date in the form of YYYY-MM-DD for your trip.");
@@ -130,6 +139,8 @@ public class TripApp {
         current.changeStartDate(selection);
     }
 
+    //MODIFIES: this
+    //EFFECTS: changes the end date of the current trip
     private void selectEndDate() {
         String selection = "";
         System.out.println("Enter a end date in the form of YYYY-MM-DD for your trip.");
@@ -141,6 +152,8 @@ public class TripApp {
         current.changeEndDate(selection);
     }
 
+    //MODIFIES: this
+    //EFFECTS: sets the budget for current trip
     private void selectBudget() {
         Double selection = 0.0;
         System.out.print("Enter a budget for your trip (must be greater to or equal to $100): $");
@@ -155,6 +168,8 @@ public class TripApp {
     }
 
 
+    //MODIFIES: this
+    //EFFECTS: processes user input
     private void editTrip() {
         boolean keepGoing = true;
         String command;
@@ -172,6 +187,8 @@ public class TripApp {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: processes user command
     private void processEdit(String command) {
         if (current == null) {
             System.out.println("You are not currently planning a trip. You can add one in the 'add trip' option");
@@ -191,6 +208,7 @@ public class TripApp {
 
 
 
+    //EFFECTS: prints edit menu onto console
     private void editMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> view current trip");
@@ -199,6 +217,8 @@ public class TripApp {
         System.out.println("\tr -> return to previous");
     }
 
+    //MODIFIES: this
+    //EFFECTS: processes user input
     private void editInfo() {
         boolean keepGoing = true;
         String command;
@@ -216,6 +236,7 @@ public class TripApp {
         }
     }
 
+    //EFFECTS: prints info menu onto console
     private void infoMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tn -> change trip name");
@@ -225,6 +246,8 @@ public class TripApp {
         System.out.println("\tr -> return to previous");
     }
 
+    //MODIFIES: this
+    //EFFECTS: processes user command
     private void processInfo(String command) {
         if (command.equals("n")) {
             selectName();
@@ -239,6 +262,8 @@ public class TripApp {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: edits spending for current trip
     private void addSpending() {
         Double selection;
         Double budget = current.getBudget().getBudget();
@@ -255,6 +280,8 @@ public class TripApp {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: ends current trip, reset it to null, and adds it to past Trips
     private void endTrip() {
         if (current == null) {
             System.out.println("You are not currently planning a trip. You can add one in the 'add trip' option");
@@ -267,6 +294,7 @@ public class TripApp {
     }
 
 
+    //EFFECTS: prints Trips array onto console
     private void viewPastTrips() {
         for (Trip trip: history.getTrips()) {
             System.out.println(trip.printTrip());
