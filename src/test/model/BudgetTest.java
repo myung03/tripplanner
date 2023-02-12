@@ -1,6 +1,5 @@
 package model;
 
-import components.Budget;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

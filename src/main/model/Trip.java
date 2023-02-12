@@ -1,8 +1,5 @@
 package model;
 
-import components.Budget;
-
-import java.util.ArrayList;
 
 //all details about a trip, including name, duration, location, and budget
 public class Trip {
@@ -13,7 +10,6 @@ public class Trip {
 
     private String endDate;
 
-    private ArrayList<String> notes;
     private Budget budget;
 
     public Trip(String name, String location, String startDate, String endDate, double budget) {

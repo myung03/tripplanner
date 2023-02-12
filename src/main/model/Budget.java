@@ -1,15 +1,14 @@
-package components;
+package model;
 
-//The budget for a given trip
 public class Budget {
+
+    //The budget for a given trip
 
     private double budget; //current budget
 
     private double spent; //current amount spent
 
     private double remaining;
-
-    //TODO -> create an array of transactions to display? or something to keep track of transactions + their type
 
     //REQUIRES: Budget must be > 100$
     //EFFECTS: Creates a new Budget instance; budget is set to given number and spent is set to 0

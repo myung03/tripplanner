@@ -1,6 +1,5 @@
 package model;
 
-import components.Budget;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,6 +44,9 @@ public class TripTest {
     @Test
     public void testBudget() {
         assertEquals(1000, trip.getBudget().getBudget());
+        trip.changeBudget(500.00);
+        assertEquals(500, trip.getBudget().getBudget());
+
     }
 
 
