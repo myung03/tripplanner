@@ -44,7 +44,8 @@ public class TripApp {
     private void init() {
         first = new Trips();
         //TODO: add a trip for init
-        first.addTrip();
+        Trip past = new Trip("Spring Break", "London", 2023 - 03 - 10, 2023 - 03 - 20, 1000);
+        first.addTrip(past);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }

@@ -5,7 +5,5 @@ public class Main {
         new TripApp();
     }
 
-    //while true -> call display menu method and wait for user input letter
-    //
 }
 
