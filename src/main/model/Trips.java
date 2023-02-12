@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+//list of trips that someone has previously been on
 public class Trips {
 
     //TODO: method that searches up and return trip
@@ -14,11 +15,6 @@ public class Trips {
     //MODIFIES: this
     //EFFECTS: creates a trip and adds it to trips; if successful return true
     public Boolean addTrip() {
-        return false;
-    }
-
-    //REQUIRES:
-    public Boolean removeTrip() {
         return false;
     }
 }

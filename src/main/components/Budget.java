@@ -1,6 +1,6 @@
 package components;
 
-//The budget of a trip
+//The budget for a given trip
 public class Budget {
 
     private double budget; //current budget
@@ -16,22 +16,6 @@ public class Budget {
     public Budget(double budget) {
         this.budget = budget;
         this.spent = 0;
-    }
-
-    //EFFECTS: Return your budget for trip
-    public double getBudget() {
-        return this.budget;
-    }
-
-    //EFFECTS: Return your current spending amount for trip;
-    public double getSpent() {
-        return this.spent;
-    }
-
-    //EFFECTS: Returns the remaining amount you have to spend on your trip
-    public double getRemaining() {
-        remaining = this.budget - this.spent;
-        return this.remaining;
     }
 
     //REQUIRES: amount >= 0
@@ -54,6 +38,24 @@ public class Budget {
     public void addSpent(double amount) {
         this.spent += amount;
     }
+
+
+    //EFFECTS: Return your budget for trip
+    public double getBudget() {
+        return this.budget;
+    }
+
+    //EFFECTS: Return your current spending amount for trip;
+    public double getSpent() {
+        return this.spent;
+    }
+
+    //EFFECTS: Returns the remaining amount you have to spend on your trip
+    public double getRemaining() {
+        remaining = this.budget - this.spent;
+        return this.remaining;
+    }
+
 
 }
 

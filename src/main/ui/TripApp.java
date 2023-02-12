@@ -10,6 +10,7 @@ public class TripApp {
 
     private Trips first;
 
+    private Trip current;
     private Scanner input;
 
     public TripApp() {
@@ -32,7 +33,7 @@ public class TripApp {
             if (command.equals("q")) {
                 keepGoing = false;
             } else {
-                //TODO: function for command processings
+                processCommand(command);
             }
         }
 
@@ -51,8 +52,21 @@ public class TripApp {
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> add trip");
-        System.out.println("\tv -> view trips");
+        System.out.println("\tc -> view/edit current trip");
+        System.out.println("\tv -> view past trips");
         System.out.println("\tq -> quit");
+    }
+
+    private void processCommand(String command) {
+        if (command.equals("a")) {
+            //TODO: add trip interface
+        } else if (command.equals("c")) {
+            //TODO: view/edit current trip interface
+        } else if (command.equals("v")) {
+            //TODO: view past trips interface
+        } else {
+            System.out.println("Your selection is not valid.");
+        }
     }
 
 

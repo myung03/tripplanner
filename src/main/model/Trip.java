@@ -2,15 +2,10 @@ package model;
 
 import components.Budget;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-
+//all details about a trip, including name, duration, location, and budget
 public class Trip {
-    //Codes references Account class from https://github.students.cs.ubc.ca/CPSC210/TellerApp
-    private static int nextAccountId = 1;
-
-    private int id;
     private String name;
     private String location;
 
@@ -22,7 +17,6 @@ public class Trip {
     private Budget budget;
 
     public Trip(String name, String location, int startDate, int endDate, double budget) {
-        id = nextAccountId++;
         this.name = name;
         this.location = location;
         this.startDate = startDate;
@@ -51,12 +45,15 @@ public class Trip {
         return this.endDate;
     }
 
+    public Budget getBudget() {
+        return this.budget;
+    }
+
     //MODIFIES: this
     //EFFECTS: changes name of Trip
     public void changeName(String name) {
         this.name = name;
     }
-
 
     //REQUIRES: must be in format YYYY-MM-DD
     //MODIFIES: this
@@ -78,18 +75,6 @@ public class Trip {
         this.location = location;
 
     }
-    //MODIFIES: this
-    //EFFECTS: adds a note to this trip
-    public void addNotes(String note) {
-        //push note onto array of notes
 
-    }
-
-    //MODIFIES: this
-    //EFFECTS: removes a trip's note at specified position
-    public void removeNote(int pos) {
-        //remove note from array of notes
-    }
-
-//is it too complex right now? if I remove addNotes/removeNotes will it still suffice?
+    //add agenda functionality?
 }

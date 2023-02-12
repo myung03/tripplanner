@@ -41,4 +41,9 @@ public class TripTest {
         assertEquals(2023-03-25, trip.getEndDate());
     }
 
+    @Test
+    public void testBudget() {
+        assertEquals(1000, trip.getBudget().getBudget());
+    }
+
 }
