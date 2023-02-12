@@ -12,7 +12,8 @@ public class TripTest {
 
     @BeforeEach
     public void setUp() {
-        trip = new Trip("Spring Break", "London", 2023-03-10, 2023-03-20, 1000);
+        trip = new Trip("Spring Break", "London",
+                "2023-03-10", "2023-03-20", 1000);
     }
 
     @Test
@@ -31,14 +32,14 @@ public class TripTest {
 
     @Test
     public void changeStartEnd() {
-        assertEquals(2023-03-10, trip.getStartDate());
-        assertEquals(2023-03-20, trip.getEndDate());
+        assertEquals("2023-03-10", trip.getStartDate());
+        assertEquals("2023-03-20", trip.getEndDate());
 
-        trip.changeStartDate(2023-03-15);
-        trip.changeEndDate(2023-03-25);
+        trip.changeStartDate("2023-03-15");
+        trip.changeEndDate("2023-03-25");
 
-        assertEquals(2023-03-15, trip.getStartDate());
-        assertEquals(2023-03-25, trip.getEndDate());
+        assertEquals("2023-03-15", trip.getStartDate());
+        assertEquals("2023-03-25", trip.getEndDate());
     }
 
     @Test
@@ -46,4 +47,10 @@ public class TripTest {
         assertEquals(1000, trip.getBudget().getBudget());
     }
 
+
+    @Test
+    public void testPrintTrip() {
+        assertEquals("Spring Break, at London. Started on 2023-03-10 and ended on 2023-03-20.",
+                trip.printTrip());
+    }
 }

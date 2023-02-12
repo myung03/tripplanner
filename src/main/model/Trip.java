@@ -9,14 +9,14 @@ public class Trip {
     private String name;
     private String location;
 
-    private int startDate;
+    private String startDate;
 
-    private int endDate;
+    private String endDate;
 
     private ArrayList<String> notes;
     private Budget budget;
 
-    public Trip(String name, String location, int startDate, int endDate, double budget) {
+    public Trip(String name, String location, String startDate, String endDate, double budget) {
         this.name = name;
         this.location = location;
         this.startDate = startDate;
@@ -36,12 +36,12 @@ public class Trip {
 
 
     //EFFECTS: returns start date of Trip
-    public int getStartDate() {
+    public String getStartDate() {
         return this.startDate;
     }
 
     //EFFECTS: returns end date of Trip
-    public int getEndDate() {
+    public String getEndDate() {
         return this.endDate;
     }
 
@@ -58,14 +58,14 @@ public class Trip {
     //REQUIRES: must be in format YYYY-MM-DD
     //MODIFIES: this
     //EFFECTS: changes startDate of Trip
-    public void changeStartDate(int date) {
+    public void changeStartDate(String date) {
         this.startDate = date;
     }
 
     //REQUIRES: must be in format YYYY-MM-DD
     //MODIFIES: this
     //EFFECTS: changes endDate of Trip
-    public void changeEndDate(int date) {
+    public void changeEndDate(String date) {
         this.endDate = date;
     }
 
@@ -76,5 +76,16 @@ public class Trip {
 
     }
 
+    public void changeBudget(Double budget) {
+        this.budget = new Budget(budget);
+    }
+
     //add agenda functionality?
+
+    //EFFECT: formats Trip into a string
+    public String printTrip() {
+        return name + ", at " +  location + ". Started on " + startDate + " and ended on " + endDate + ".";
+
+    }
 }
+

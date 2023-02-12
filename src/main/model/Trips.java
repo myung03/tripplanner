@@ -10,6 +10,10 @@ public class Trips {
         trips = new ArrayList<Trip>();
     }
 
+    public ArrayList<Trip> getTrips() {
+        return trips;
+    }
+
     //MODIFIES: this
     //EFFECTS: creates a trip and adds it to trips; if successful return true
     public void addTrip(Trip trip) {
