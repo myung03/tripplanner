@@ -32,8 +32,8 @@ others just a little bit easier so people can simply enjoy their vacations rathe
 ## User Stories 
 
 As a user, I want to be able to...
-- create a new trip to add to my list of trips 
-- add an agenda to my list of agendas for a given trip
-- have a finance tracker that gives me a breakdown of my budget, how much I've spent so far, and the difference between the two
-- edit my budget and amount spent so far 
-- view my previous trips and make notes about them 
+- create a trip to add to my list of trips 
+- end my current trip allowing me to declare a new trip 
+- have a budget tracker that shows my budget, how much I've spent so far, and the difference between the two
+- edit my budget and amount spent so far, as well as trip details
+- view all of my previous trips 

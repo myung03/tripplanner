@@ -1,8 +1,9 @@
 package model;
 
+//The budget for a given trip
+
 public class Budget {
 
-    //The budget for a given trip
 
     private double budget; //current budget
 

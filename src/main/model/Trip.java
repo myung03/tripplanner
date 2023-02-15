@@ -2,6 +2,7 @@ package model;
 
 
 //all details about a trip, including name, duration, location, and budget
+
 public class Trip {
     private String name;
     private String location;
@@ -76,7 +77,6 @@ public class Trip {
         this.budget = new Budget(budget);
     }
 
-    //add agenda functionality?
 
     //EFFECT: formats Trip into a string
     public String printTrip() {

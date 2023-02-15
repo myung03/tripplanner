@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+//tests for Trip class
 public class TripTest {
 
     private Trip trip;

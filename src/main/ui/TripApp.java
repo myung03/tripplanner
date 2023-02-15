@@ -6,6 +6,7 @@ import model.Trips;
 import java.util.Scanner;
 
 //Trip planner application
+
 //Codes references TellerApp class from https://github.students.cs.ubc.ca/CPSC210/TellerApp
 public class TripApp {
 
