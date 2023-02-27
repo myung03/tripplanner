@@ -36,4 +36,6 @@ As a user, I want to be able to...
 - end my current trip allowing me to declare a new trip 
 - have a budget tracker that shows my budget, how much I've spent so far, and the difference between the two
 - edit my budget and amount spent so far, as well as trip details
-- view all of my previous trips 
+- view all of my previous trips
+- save my previous list of trips and current trip that I am on
+- have the option to reload my saved previous trips and current trip
