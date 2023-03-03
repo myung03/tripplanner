@@ -57,3 +57,15 @@ public class TripTest {
                 trip.printTrip());
     }
 }
+
+//how to write tests for JSON classes?
+//how to make "fake data" for the test cases?
+
+//since in my TripApp, I have a current trip and a list of past trips,
+// how would I parse both into Java? Since it's two separate classes and not
+// just a single class with nested objects inside
+//alernatively would it be easier to just put "current trip" into the trips class?
+
+
+//budget -> trip -> trips, do I have to have a JSON reader for EACH item if I have another class nested? ex.
+//budget inside trips is another class

@@ -7,7 +7,8 @@ import java.util.Scanner;
 
 //Trip planner application
 
-//Codes references TellerApp class from https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//Codes references TellerApp & WorkRoomApp class from https://github.students.cs.ubc.ca/CPSC210/TellerApp
+// & https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class TripApp {
 
     private Trips history;
@@ -301,6 +302,9 @@ public class TripApp {
             System.out.println(trip.printTrip());
         }
     }
+
+    //TODO -> Trips + Trip save/load functions (need a separate reader + writer for each one?
+    //
 
 
 
