@@ -5,12 +5,13 @@ import model.Trips;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonReaderTest {
+    //Codes references JsonReaderTest class from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+
 
     @Test
     void testReaderNonExistentFileTrips() {
