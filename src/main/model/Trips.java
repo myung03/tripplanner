@@ -18,11 +18,6 @@ public class Trips {
         return trips;
     }
 
-    public void setTrips(ArrayList<Trip> next) {
-        trips = next;
-    }
-
-
     //MODIFIES: this
     //EFFECTS: creates a trip and adds it to trips; if successful return true
     public void addTrip(Trip trip) {
