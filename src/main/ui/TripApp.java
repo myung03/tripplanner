@@ -319,6 +319,8 @@ public class TripApp {
         }
     }
 
+    //EFFECTS: save your current and previous trips into a JSON file
+    //if current empty, will only save previous
     private void saveTrips() {
         try {
             jsonWriter.open();
@@ -339,6 +341,9 @@ public class TripApp {
         }
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: load your current and previous trips from JSON file
     private void loadTrips() {
         try {
             history = jsonReader.readTrips();

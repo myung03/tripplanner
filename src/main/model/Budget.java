@@ -74,6 +74,7 @@ public class Budget implements Writable {
         return this.remaining;
     }
 
+    //EFFECTS: Returns this formatted as a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

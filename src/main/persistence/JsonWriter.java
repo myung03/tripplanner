@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+// Represents a writer that writes JSON representation of workroom to file
+//converts our object into a JSON representation
 public class JsonWriter {
 
     //Codes references JsonWriter class from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
@@ -34,12 +36,14 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of trips to file
     public void writeTrips(Trips trips) {
         JSONObject json = trips.toJson();
         saveToFile(json.toString(TAB));
     }
 
+    //MODIFIES: this
+    //EFFECTS: writes JSON representation of trip to file
     public void writeTrip(Trip trip) {
         JSONObject json = trip.toJson();
         saveToFile(json.toString(TAB));

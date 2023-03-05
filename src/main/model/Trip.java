@@ -87,6 +87,7 @@ public class Trip implements Writable {
 
     }
 
+    //EFFECT: returns this formatted as a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

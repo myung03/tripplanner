@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+// Represents a reader that reads workroom from JSON data stored in file
+
 public class JsonReader {
     //Codes references JsonReader class from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
@@ -27,7 +29,7 @@ public class JsonReader {
         this.source = next;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads trips from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Trips readTrips() throws IOException {
         String jsonData = readFile(source);
@@ -35,6 +37,8 @@ public class JsonReader {
         return parseTrips(jsonObject);
     }
 
+    //EFFECTS: reads trip from file and returns it;
+    // throws IOException if an error occurs reading data from file
     public Trip readTrip() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -52,15 +56,15 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses trip from JSON object and returns it
     private Trips parseTrips(JSONObject jsonObject) {
         Trips trips = new Trips();
         addTrips(trips, jsonObject);
         return trips;
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // MODIFIES: trips
+    // EFFECTS: parses each trip in list of trips from JSON object and adds them to trips
     private void addTrips(Trips trips, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("past trips");
         for (Object json : jsonArray) {
@@ -69,8 +73,8 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: Trips
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // MODIFIES: trips
+    // EFFECTS: parses trip from JSON object and adds it to trips
     private void addTrip(Trips trips, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String location = jsonObject.getString("location");
@@ -80,6 +84,8 @@ public class JsonReader {
         trips.addTrip(trip);
     }
 
+    // MODIFIES: trip
+    //EFFECTS: parses trip from JSON object and returns it
     private Trip parseTrip(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String location = jsonObject.getString("location");
