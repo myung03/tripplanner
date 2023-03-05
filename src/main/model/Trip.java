@@ -3,7 +3,10 @@ package model;
 
 //all details about a trip, including name, duration, location, and budget
 
-public class Trip {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Trip implements Writable {
     private String name;
     private String location;
 
@@ -82,6 +85,17 @@ public class Trip {
     public String printTrip() {
         return name + ", at " +  location + ". Started on " + startDate + " and ended on " + endDate + ".";
 
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("location", location);
+        json.put("startDate", startDate);
+        json.put("endDate", endDate);
+        json.put("budget", budget.toJson());
+        return json;
     }
 }
 

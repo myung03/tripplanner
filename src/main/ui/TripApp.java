@@ -2,7 +2,12 @@ package ui;
 
 import model.Trip;
 import model.Trips;
+import org.json.JSONException;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 //Trip planner application
@@ -11,13 +16,30 @@ import java.util.Scanner;
 // & https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class TripApp {
 
+    private static final String HISTORY_STORE = "./data/history.json";
+
+    private static final String CURRENT_STORE = "./data/current.json";
     private Trips history;
 
     private Trip current;
     private Scanner input;
 
+    private JsonWriter jsonWriter;
+
+    private JsonReader jsonReader;
+
     //EFFECTS: starts app
     public TripApp() {
+        history = new Trips();
+        Trip past = new Trip("Spring Break", "London",
+                "2023-03-10", "2023-03-20", 1000);
+        history.addTrip(past);
+
+        jsonWriter = new JsonWriter(HISTORY_STORE);
+        jsonReader = new JsonReader(HISTORY_STORE);
+        input = new Scanner(System.in);
+        input.useDelimiter("\n");
+
         runTrip();
     }
 
@@ -26,8 +48,6 @@ public class TripApp {
     private void runTrip() {
         boolean keepGoing = true;
         String command = null;
-
-        init();
 
         while (keepGoing) {
             mainMenu();
@@ -45,24 +65,14 @@ public class TripApp {
 
     }
 
-    //MODIFIES: this
-    //EFFECTS: initializes trips
-    private void init() {
-        history = new Trips();
-        Trip past = new Trip("Spring Break", "London",
-                "2023-03-10", "2023-03-20", 1000);
-        history.addTrip(past);
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
-    }
-
     //EFFECTS: prints main menu onto console
     private void mainMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> add trip");
         System.out.println("\tc -> view/edit current trip");
-        System.out.println("\te -> end current trip");
         System.out.println("\tv -> view past trips");
+        System.out.println("\ts -> save trips to file");
+        System.out.println("\tl -> load trips from file");
         System.out.println("\tq -> quit");
     }
 
@@ -73,10 +83,12 @@ public class TripApp {
             createTrip();
         } else if (command.equals("c")) {
             editTrip();
-        } else if (command.equals("e")) {
-            endTrip();
         } else if (command.equals("v")) {
             viewPastTrips();
+        } else if (command.equals("s")) {
+            saveTrips();
+        } else if (command.equals("l")) {
+            loadTrips();
         } else {
             System.out.println("Your selection is not valid.");
         }
@@ -199,10 +211,12 @@ public class TripApp {
                     + current.getStartDate() + " and ends on " + current.getEndDate() + "." + " Your budget is "
                     + current.getBudget().getBudget() + ", and you have " + current.getBudget().getRemaining()
                     + " left to spend.");
-        } else if (command.equals("e")) {
+        } else if (command.equals("i")) {
             editInfo();
         } else if (command.equals("b")) {
             addSpending();
+        } else if (command.equals("e")) {
+            endTrip();
         } else {
             System.out.println("Your selection is not valid.");
         }
@@ -214,8 +228,9 @@ public class TripApp {
     private void editMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> view current trip");
-        System.out.println("\te -> edit trip information");
+        System.out.println("\ti -> edit trip information");
         System.out.println("\tb -> edit budget");
+        System.out.println("\te -> end current trip");
         System.out.println("\tr -> return to previous");
     }
 
@@ -292,6 +307,7 @@ public class TripApp {
             history.addTrip(past);
             current = null;
             System.out.println("Your current trip has ended. You can view it in the 'view past trips' option.");
+
         }
     }
 
@@ -303,8 +319,39 @@ public class TripApp {
         }
     }
 
-    //TODO -> Trips + Trip save/load functions (need a separate reader + writer for each one?
-    //
+    private void saveTrips() {
+        try {
+            jsonWriter.open();
+            jsonWriter.writeTrips(history);
+            jsonWriter.close();
+
+            if (current == null) {
+                System.out.println("Saved trips!");
+                return;
+            }
+            jsonWriter.changeDestination(CURRENT_STORE);
+            jsonWriter.open();
+            jsonWriter.writeTrip(current);
+            jsonWriter.close();
+            System.out.println("Saved current and previous trips!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save history because file was not found");
+        }
+    }
+
+    private void loadTrips() {
+        try {
+            history = jsonReader.readTrips();
+            jsonReader.changeDestination(CURRENT_STORE);
+            current = jsonReader.readTrip();
+            System.out.println("Loaded your current trip and previous trips!");
+        } catch (IOException e) {
+            System.out.println("Unable to read from file.");
+        } catch (JSONException e) {
+            System.out.println("Loaded your previous trips!");
+        }
+
+    }
 
 
 

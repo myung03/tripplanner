@@ -2,7 +2,10 @@ package model;
 
 //The budget for a given trip
 
-public class Budget {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Budget implements Writable {
 
 
     private double budget; //current budget
@@ -70,6 +73,18 @@ public class Budget {
         remaining = this.budget - this.spent;
         return this.remaining;
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("budget", budget);
+        json.put("spent", spent);
+        json.put("remaining", remaining);
+        return json;
+    }
+
+
+
 
 
 }
