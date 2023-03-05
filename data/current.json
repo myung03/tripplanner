@@ -1,0 +1,11 @@
+{
+    "endDate": "2024",
+    "name": "matthew's trip",
+    "location": "singapore",
+    "startDate": "2023",
+    "budget": {
+        "spent": 500,
+        "remaining": 500,
+        "budget": 1000
+    }
+}

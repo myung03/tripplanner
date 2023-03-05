@@ -7,7 +7,7 @@
         "budget": {
             "spent": 0,
             "remaining": 0,
-            "budget": 10000
+            "budget": 0
         }
     },
     {
@@ -18,7 +18,7 @@
         "budget": {
             "spent": 0,
             "remaining": 0,
-            "budget": 1000
+            "budget": 0
         }
     }
 ]}
