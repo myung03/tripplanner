@@ -1,11 +1,11 @@
 {
     "endDate": "2024",
-    "name": "matthew's trip",
-    "location": "singapore",
+    "name": "\"matthew's trip\"",
+    "location": "\"singapore\"",
     "startDate": "2023",
     "budget": {
-        "spent": 500,
-        "remaining": 500,
-        "budget": 1000
+        "spent": 1000,
+        "remaining": 10000,
+        "budget": 10000
     }
 }

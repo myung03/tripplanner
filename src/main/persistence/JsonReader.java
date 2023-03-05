@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 // Represents a reader that reads workroom from JSON data stored in file
@@ -60,6 +62,8 @@ public class JsonReader {
     private Trips parseTrips(JSONObject jsonObject) {
         Trips trips = new Trips();
         addTrips(trips, jsonObject);
+
+        Collections.reverse(trips.getTrips());
         return trips;
     }
 
@@ -67,6 +71,8 @@ public class JsonReader {
     // EFFECTS: parses each trip in list of trips from JSON object and adds them to trips
     private void addTrips(Trips trips, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("past trips");
+
+
         for (Object json : jsonArray) {
             JSONObject nextTrip = (JSONObject) json;
             addTrip(trips, nextTrip);

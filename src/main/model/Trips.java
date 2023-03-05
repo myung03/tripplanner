@@ -13,9 +13,15 @@ public class Trips {
         trips = new ArrayList<Trip>();
     }
 
+    //EFFECTS: return trips
     public ArrayList<Trip> getTrips() {
         return trips;
     }
+
+    public void setTrips(ArrayList<Trip> next) {
+        trips = next;
+    }
+
 
     //MODIFIES: this
     //EFFECTS: creates a trip and adds it to trips; if successful return true
