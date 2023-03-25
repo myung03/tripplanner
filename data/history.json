@@ -1,16 +1,5 @@
 {"past trips": [
     {
-        "endDate": "2024",
-        "name": "\"matthew's trip\"",
-        "location": "\"singapore\"",
-        "startDate": "2023",
-        "budget": {
-            "spent": 1000,
-            "remaining": 0,
-            "budget": 10000
-        }
-    },
-    {
         "endDate": "a",
         "name": "a",
         "location": "a",
@@ -18,7 +7,7 @@
         "budget": {
             "spent": 0,
             "remaining": 0,
-            "budget": 0
+            "budget": 1000
         }
     },
     {
@@ -29,7 +18,7 @@
         "budget": {
             "spent": 0,
             "remaining": 0,
-            "budget": 0
+            "budget": 1000
         }
     }
 ]}

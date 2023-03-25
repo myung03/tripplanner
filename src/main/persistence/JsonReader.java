@@ -27,6 +27,7 @@ public class JsonReader {
         this.source = source;
     }
 
+    //EFFECTS: changes destination file
     public void changeDestination(String next) {
         this.source = next;
     }
