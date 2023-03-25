@@ -1,24 +1,11 @@
-{"past trips": [
-    {
-        "endDate": "a",
-        "name": "a",
-        "location": "a",
-        "startDate": "a",
-        "budget": {
-            "spent": 0,
-            "remaining": 0,
-            "budget": 1000
-        }
-    },
-    {
-        "endDate": "2023-03-20",
-        "name": "Spring Break",
-        "location": "London",
-        "startDate": "2023-03-10",
-        "budget": {
-            "spent": 0,
-            "remaining": 0,
-            "budget": 1000
-        }
+{"past trips": [{
+    "endDate": "2023-03-20",
+    "name": "Spring Break",
+    "location": "London",
+    "startDate": "2023-03-10",
+    "budget": {
+        "spent": 0,
+        "remaining": 0,
+        "budget": 0
     }
-]}
+}]}
