@@ -53,19 +53,20 @@ public class PlannerUI extends JFrame {
 
     private static final String CURRENT_STORE = "./data/current.json";
 
+    private static final String ICON = "./assets/icon.png";
+
     public PlannerUI() {
         frame = new JFrame();
         frame.setBackground(Color.blue);
         frame.setPreferredSize(new Dimension(600, 600));
+        frame.setLayout(new GridLayout(2, 1));
         panel = new JPanel();
 
         initUI();
         createText();
         createButtons();
-
-
         panel.setBorder(createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(0, 1));
+        panel.setLayout(new GridLayout(1, 2));
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Trip Planner");
@@ -85,32 +86,43 @@ public class PlannerUI extends JFrame {
     }
 
     //MODIFIES: this
-    //EFFECTS: initialize buttons on home screen
+    //EFFECTS: initialize image and buttons on homescreen
     private void createButtons() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(0, 1));
         add = new JButton("Add Trip");
         edit = new JButton("Edit Trip");
         view = new JButton("View Past Trips");
         saveb = new JButton("Save");
         loadb = new JButton("Load");
         addActionListeners();
-        panel.add(add);
-        panel.add(edit);
-        panel.add(view);
-        panel.add(saveb);
-        panel.add(loadb);
+        buttonPanel.add(add);
+        buttonPanel.add(edit);
+        buttonPanel.add(view);
+        buttonPanel.add(saveb);
+        buttonPanel.add(loadb);
+        panel.add(buttonPanel);
+        ImageIcon icon = new ImageIcon(ICON);
+        JLabel holder = new JLabel(icon);
+        panel.add(holder);
 
     }
 
 
-    //EFFECTS: initialize home screen text
+    //MODIFIES: this
+    //EFFECTS: create a panel for homes creen text and add it to frame
     private void createText() {
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new GridLayout(0, 1));
+        textPanel.setBorder(createEmptyBorder(30, 30, 0, 30));
         welcome = new JLabel("Welcome!");
         setHomeText();
         persist = new JLabel("");
         persist.setVisible(false);
-        panel.add(welcome);
-        panel.add(trip);
-        panel.add(persist);
+        textPanel.add(welcome);
+        textPanel.add(trip);
+        textPanel.add(persist);
+        frame.add(textPanel);
     }
 
     //EFFECTS: adds action listeners to each button on homescreen
