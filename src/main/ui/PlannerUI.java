@@ -75,6 +75,7 @@ public class PlannerUI extends JFrame {
 
     }
 
+    //MODIFIES: this
     //EFFECTS: initialize trips and JSON stores
     private void initUI() {
         history = new Trips();
@@ -172,6 +173,7 @@ public class PlannerUI extends JFrame {
         change.add(editPanel);
     }
 
+    //MODIFIES: this
     //EFFECTS: takes user to frame with previous trips
     private void showPrev(ActionEvent e) {
         prev = new JFrame("Previous trips");
@@ -195,6 +197,7 @@ public class PlannerUI extends JFrame {
         prev.add(button);
     }
 
+    //MODIFIES: this
     //EFFECTS: saves current/past trips into local JSON store
     private void saveTrip(ActionEvent e) {
         try {
@@ -221,6 +224,7 @@ public class PlannerUI extends JFrame {
 
     }
 
+    //MODIFIES: this
     //EFFECTS: loads current/past trips from local JSON store
     private void loadTrip(ActionEvent e) {
         try {
@@ -249,6 +253,8 @@ public class PlannerUI extends JFrame {
         frame.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: initializes previous trips screen
     private void initPrev() {
         prev.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         prev.setResizable(false);
@@ -417,6 +423,8 @@ public class PlannerUI extends JFrame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: turns off save/load text after interval
     private void turnOff() {
         Timer timer = new Timer(3000, c -> {
             persist.setText("");
@@ -425,8 +433,6 @@ public class PlannerUI extends JFrame {
         timer.start();
     }
 
-    public static void main(String[] args) {
-        new PlannerUI();
-    }
+
 
 }
