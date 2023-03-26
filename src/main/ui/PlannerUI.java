@@ -8,10 +8,12 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 import static javax.swing.BorderFactory.createEmptyBorder;
@@ -34,7 +36,6 @@ public class PlannerUI extends JFrame {
     JFrame prev;
     JFrame change;
     JPanel panel;
-    JPanel infoPanel;
     JTextField name;
     JTextField location;
     JTextField startDate;
@@ -81,6 +82,7 @@ public class PlannerUI extends JFrame {
         jsonReader = new JsonReader(HISTORY_STORE);
     }
 
+    //MODIFIES: this;
     //EFFECTS: initialize buttons on home screen
     private void createButtons() {
         add = new JButton("Add Trip");
@@ -148,7 +150,7 @@ public class PlannerUI extends JFrame {
         JButton button = new JButton("Create");
         change.add(button);
         button.addActionListener(c -> {
-            //TODO: create trip functionality on button click
+            createTrip(c);
         });
     }
 
@@ -216,11 +218,8 @@ public class PlannerUI extends JFrame {
             jsonReader.changeDestination(CURRENT_STORE);
             current = jsonReader.readTrip();
             persist.setText("Loaded your current trip and previous trips!");
+            setHomeText();
             persist.setVisible(true);
-            trip.setText("<html>Your trip " + current.getName() + " at " + current.getLocation() + " starts on "
-                    + current.getStartDate() + " and ends on " + current.getEndDate() + "." + " Your budget is "
-                    + current.getBudget().getBudget() + ", and you have " + current.getBudget().getRemaining()
-                    + " left to spend.<html>");
             trip.setHorizontalAlignment(SwingConstants.LEFT);
         } catch (IOException err) {
             persist.setText("Unable to read from file.");
@@ -248,12 +247,16 @@ public class PlannerUI extends JFrame {
         prev.setVisible(true);
     }
 
+    //MODIFIES: this
+    //EFFECTS: initializes change frame
     private void initAdd() {
         change = new JFrame("Add a New Trip");
+        change.setBackground(Color.blue);
         change.setLayout(new FlowLayout());
+        change.setResizable(false);
         JLabel label = new JLabel("Enter the following information to begin your trip!");
         change.add(label);
-        change.setPreferredSize(new Dimension(400, 600));
+        change.setPreferredSize(new Dimension(400, 400));
         change.pack();
         frame.setVisible(false);
         change.setVisible(true);
@@ -273,7 +276,7 @@ public class PlannerUI extends JFrame {
         location = new JTextField(2);
         startDate = new JTextField(2);
         endDate = new JTextField(2);
-        budget = new JTextField(2);
+        budget = createDoubleField();
         infoPanel.add(label1);
         infoPanel.add(name);
         infoPanel.add(label2);
@@ -287,9 +290,39 @@ public class PlannerUI extends JFrame {
         return infoPanel;
     }
 
+    //EFFECTS: returns a number field for budget values
+    private JFormattedTextField createDoubleField() {
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+        NumberFormatter formatter = new NumberFormatter(decimalFormat);
+        formatter.setValueClass(Double.class);
+        formatter.setAllowsInvalid(false);
+        return new JFormattedTextField(formatter);
+    }
 
+    //MODIFIES: this
+    //EFFECTS: sets current trip to trip with given information
+    private void createTrip(ActionEvent e) {
+        String nm = name.getText();
+        String loc = location.getText();
+        String sd = startDate.getText();
+        String ed = endDate.getText();
+        String text = budget.getText();
+        Double bug = Double.parseDouble(text);
 
+        current = new Trip(nm, loc, sd, ed, bug);
+        frame.setVisible(true);
+        setHomeText();
+        change.setVisible(false);
+    }
 
+    //MODIFIES: this
+    //EFFECTS: sets home screen text
+    private void setHomeText() {
+        trip.setText("<html>Your trip " + current.getName() + " at " + current.getLocation() + " starts on "
+                + current.getStartDate() + " and ends on " + current.getEndDate() + "." + " Your budget is "
+                + current.getBudget().getBudget() + ", and you have " + current.getBudget().getRemaining()
+                + " left to spend.<html>");
+    }
 
     public static void main(String[] args) {
         new PlannerUI();

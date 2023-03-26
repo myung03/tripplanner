@@ -1,11 +1,11 @@
 {
-    "endDate": "b",
-    "name": "b",
-    "location": "b",
-    "startDate": "b",
+    "endDate": "09-20-2023",
+    "name": "Spring Break",
+    "location": "Tokyo",
+    "startDate": "09-09-2023",
     "budget": {
         "spent": 0,
-        "remaining": 0,
-        "budget": 1000
+        "remaining": 10000.45,
+        "budget": 10000.45
     }
 }
