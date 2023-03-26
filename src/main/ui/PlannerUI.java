@@ -14,10 +14,10 @@ import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Scanner;
 
 import static javax.swing.BorderFactory.createEmptyBorder;
 
+//GUI Interface for Trip Planning App
 public class PlannerUI extends JFrame {
 
 
@@ -30,10 +30,12 @@ public class PlannerUI extends JFrame {
     private JsonReader jsonReader;
 
     JLabel welcome;
-    JLabel trip;
+    JLabel trip = new JLabel("You are not currently on any trips. Press 'Add Trip' to start planning one.");
     JLabel persist;
     JFrame frame;
     JFrame prev;
+    JFrame create;
+
     JFrame change;
     JPanel panel;
     JTextField name;
@@ -82,7 +84,7 @@ public class PlannerUI extends JFrame {
         jsonReader = new JsonReader(HISTORY_STORE);
     }
 
-    //MODIFIES: this;
+    //MODIFIES: this
     //EFFECTS: initialize buttons on home screen
     private void createButtons() {
         add = new JButton("Add Trip");
@@ -103,9 +105,7 @@ public class PlannerUI extends JFrame {
     //EFFECTS: initialize home screen text
     private void createText() {
         welcome = new JLabel("Welcome!");
-        if (trip == null) {
-            trip = new JLabel("You are not currently on any trips. Press 'Add Trip' to start planning one.");
-        }
+        setHomeText();
         persist = new JLabel("");
         persist.setVisible(false);
         panel.add(welcome);
@@ -116,12 +116,10 @@ public class PlannerUI extends JFrame {
     //EFFECTS: adds action listeners to each button on homescreen
     private void addActionListeners() {
         add.addActionListener(e -> {
-            //TODO: Function for opening a new window to add trip
             addTrip(e);
         });
 
         edit.addActionListener(e -> {
-            //TODO: Function for opening a new window to edit trip
             editTrip(e);
         });
 
@@ -138,30 +136,28 @@ public class PlannerUI extends JFrame {
         });
 
 
-
-
     }
 
+    //MODIFIES: this
     //EFFECTS: takes user to frame for adding a new trip
-    public void addTrip(ActionEvent e) {
+    private void addTrip(ActionEvent e) {
         initAdd();
         JPanel infoPanel = initTextFields(new JPanel());
-        change.add(infoPanel);
+        create.add(infoPanel);
         JButton button = new JButton("Create");
-        change.add(button);
+        create.add(button);
         button.addActionListener(c -> {
             createTrip(c);
         });
     }
 
-    public void editTrip(ActionEvent e) {
-        //TODO: add a button and a function for editing trip information
-        JFrame newFrame = new JFrame("Edit your current trip");
-        JLabel label = new JLabel("This is a new window!");
-        newFrame.add(label);
-        newFrame.pack();
-        frame.setVisible(false);
-        newFrame.setVisible(true);
+    //MODIFIES: this
+    //EFFECTS: takes user to frame for editing a trip
+    private void editTrip(ActionEvent e) {
+        initEditPanel();
+        change.setLayout(new GridLayout(0, 1));
+        JPanel editPanel = initEditFields(new JPanel());
+        change.add(editPanel);
     }
 
     //EFFECTS: takes user to frame with previous trips
@@ -188,7 +184,7 @@ public class PlannerUI extends JFrame {
     }
 
     //EFFECTS: saves current/past trips into local JSON store
-    public void saveTrip(ActionEvent e) {
+    private void saveTrip(ActionEvent e) {
         try {
             jsonWriter.open();
             jsonWriter.writeTrips(history);
@@ -197,6 +193,7 @@ public class PlannerUI extends JFrame {
             if (current == null) {
                 persist.setText("Saved trips!");
                 persist.setVisible(true);
+                turnOff();
                 return;
             }
             jsonWriter.changeDestination(CURRENT_STORE);
@@ -205,6 +202,7 @@ public class PlannerUI extends JFrame {
             jsonWriter.close();
             persist.setText("Saved current and previous trips!");
             persist.setVisible(true);
+            turnOff();
         } catch (FileNotFoundException err) {
             persist.setText("Unable to save history because file was not found");
         }
@@ -218,15 +216,18 @@ public class PlannerUI extends JFrame {
             jsonReader.changeDestination(CURRENT_STORE);
             current = jsonReader.readTrip();
             persist.setText("Loaded your current trip and previous trips!");
+            turnOff();
             setHomeText();
             persist.setVisible(true);
             trip.setHorizontalAlignment(SwingConstants.LEFT);
         } catch (IOException err) {
             persist.setText("Unable to read from file.");
             persist.setVisible(true);
+            turnOff();
         } catch (JSONException err) {
             persist.setText("Loaded your previous trips!");
             persist.setVisible(true);
+            turnOff();
         }
     }
 
@@ -239,7 +240,7 @@ public class PlannerUI extends JFrame {
     private void initPrev() {
         prev.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         prev.setResizable(false);
-        prev.setLayout(new FlowLayout(FlowLayout.CENTER,0, 40));
+        prev.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 40));
         prev.setPreferredSize(new Dimension(600, 800));
         prev.setBackground(Color.blue);
         prev.pack();
@@ -250,23 +251,23 @@ public class PlannerUI extends JFrame {
     //MODIFIES: this
     //EFFECTS: initializes change frame
     private void initAdd() {
-        change = new JFrame("Add a New Trip");
-        change.setBackground(Color.blue);
-        change.setLayout(new FlowLayout());
-        change.setResizable(false);
+        create = new JFrame("Add a New Trip");
+        create.setBackground(Color.blue);
+        create.setLayout(new FlowLayout());
+        create.setResizable(false);
         JLabel label = new JLabel("Enter the following information to begin your trip!");
-        change.add(label);
-        change.setPreferredSize(new Dimension(400, 400));
-        change.pack();
+        create.add(label);
+        create.setPreferredSize(new Dimension(400, 400));
+        create.pack();
         frame.setVisible(false);
-        change.setVisible(true);
+        create.setVisible(true);
 
     }
 
     //initialize text fields corresponding and labels
     private JPanel initTextFields(JPanel infoPanel) {
         infoPanel.setLayout(new GridLayout(0, 1));
-        infoPanel.setBorder(BorderFactory.createEmptyBorder(30,30, 10, 30));
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         JLabel label1 = new JLabel("Name of trip");
         JLabel label2 = new JLabel("Location");
         JLabel label3 = new JLabel("Start Date");
@@ -312,16 +313,104 @@ public class PlannerUI extends JFrame {
         current = new Trip(nm, loc, sd, ed, bug);
         frame.setVisible(true);
         setHomeText();
-        change.setVisible(false);
+        create.setVisible(false);
     }
 
     //MODIFIES: this
     //EFFECTS: sets home screen text
     private void setHomeText() {
-        trip.setText("<html>Your trip " + current.getName() + " at " + current.getLocation() + " starts on "
-                + current.getStartDate() + " and ends on " + current.getEndDate() + "." + " Your budget is "
-                + current.getBudget().getBudget() + ", and you have " + current.getBudget().getRemaining()
-                + " left to spend.<html>");
+        if (trip == null) {
+            trip = new JLabel("You are not currently on any trips. Press 'Add Trip' to start planning one.");
+        } else if (current == null) {
+            trip.setText("You are not currently on any trips. Press 'Add Trip' to start planning one.");
+        } else {
+            DecimalFormat df = new DecimalFormat("#.##"); //
+            String bug = df.format(current.getBudget().getBudget());
+            String rem = df.format(current.getBudget().getRemaining());
+
+            trip.setText("<html>Your trip " + current.getName() + " at " + current.getLocation() + " starts on "
+                    + current.getStartDate() + " and ends on " + current.getEndDate() + "." + " Your budget is "
+                    + bug + ", and you have " + rem
+                    + " left to spend.<html>");
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: initialize edit frame
+    private void initEditPanel() {
+        change = new JFrame("Edit your current trip");
+        JLabel label = new JLabel("Edit your budget or end your trip below!");
+        persist = new JLabel("");
+        label.setHorizontalAlignment(JLabel.CENTER);
+        persist.setHorizontalAlignment(JLabel.CENTER);
+        change.setPreferredSize(new Dimension(400, 400));
+        change.add(label);
+        change.add(persist);
+        change.pack();
+        frame.setVisible(false);
+        change.setVisible(true);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: initializes text fields in edit frame
+    private JPanel initEditFields(JPanel jpanel) {
+        jpanel.setLayout(new GridLayout(0, 1));
+        jpanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
+        JButton end = new JButton("End Trip");
+        JButton spend = new JButton("Add Spending");
+        budget = createDoubleField();
+        end.addActionListener(c -> {
+            endTrip(c);
+        });
+        spend.addActionListener(c -> {
+            addSpending(c);
+        });
+        jpanel.add(budget);
+        jpanel.add(spend);
+        jpanel.add(end);
+        return jpanel;
+
+    }
+
+    //MODIFIES: this
+    //EFFECTS: ends current trip and adds it to past trips
+    private void endTrip(ActionEvent e) {
+        if (current == null) {
+            persist.setText("You are not currently on a trip.");
+            persist.setVisible(true);
+        } else {
+            Trip past = current;
+            history.addTrip(past);
+            current = null;
+            setHomeText();
+            change.setVisible(false);
+            frame.setVisible(true);
+        }
+    }
+
+    private void addSpending(ActionEvent e) {
+        Double bug = current.getBudget().getBudget();
+        Double spent = current.getBudget().getSpent();
+        String text = budget.getText();
+        Double selection = Double.parseDouble(text);
+
+        if (selection > bug || selection + spent > bug) {
+            persist.setVisible(true);
+            persist.setText("You cannot spend more than your budget!");
+        } else {
+            current.getBudget().addSpent(selection);
+            setHomeText();
+            change.setVisible(false);
+            frame.setVisible(true);
+        }
+    }
+
+    private void turnOff() {
+        Timer timer = new Timer(3000, c -> {
+            persist.setText("");
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     public static void main(String[] args) {
