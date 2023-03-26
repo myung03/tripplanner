@@ -7,11 +7,14 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+
+import static javax.swing.BorderFactory.createEmptyBorder;
 
 public class PlannerUI extends JFrame {
 
@@ -28,10 +31,15 @@ public class PlannerUI extends JFrame {
     JLabel trip;
     JLabel persist;
     JFrame frame;
-    JFrame save;
-    JFrame load;
+    JFrame prev;
+    JFrame change;
     JPanel panel;
-
+    JPanel infoPanel;
+    JTextField name;
+    JTextField location;
+    JTextField startDate;
+    JTextField endDate;
+    JTextField budget;
     JButton add;
     JButton edit;
     JButton view;
@@ -53,9 +61,9 @@ public class PlannerUI extends JFrame {
         createButtons();
 
 
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel.setBorder(createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(new GridLayout(0, 1));
-        frame.add(panel,BorderLayout.CENTER);
+        frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Trip Planner");
         frame.pack();
@@ -75,7 +83,6 @@ public class PlannerUI extends JFrame {
 
     //EFFECTS: initialize buttons on home screen
     private void createButtons() {
-        //TODO: Initalize buttons;
         add = new JButton("Add Trip");
         edit = new JButton("Edit Trip");
         view = new JButton("View Past Trips");
@@ -94,7 +101,9 @@ public class PlannerUI extends JFrame {
     //EFFECTS: initialize home screen text
     private void createText() {
         welcome = new JLabel("Welcome!");
-        trip = new JLabel("You are not currently on any trips. Press 'Add Trip' to start planning one.");
+        if (trip == null) {
+            trip = new JLabel("You are not currently on any trips. Press 'Add Trip' to start planning one.");
+        }
         persist = new JLabel("");
         persist.setVisible(false);
         panel.add(welcome);
@@ -115,31 +124,32 @@ public class PlannerUI extends JFrame {
         });
 
         view.addActionListener(e -> {
-            //TODO: Function for opening a new window to show previous trips
             showPrev(e);
         });
 
         saveb.addActionListener(e -> {
-            //TODO: Function for saving trips/current
             saveTrip(e);
         });
-        loadb.addActionListener(e -> {
-            //TODO: Function for loading trips/current
-            loadTrip(e);
 
+        loadb.addActionListener(e -> {
+            loadTrip(e);
         });
+
+
 
 
     }
 
+    //EFFECTS: takes user to frame for adding a new trip
     public void addTrip(ActionEvent e) {
-        //TODO: add a button and a function for adding a trip
-        JFrame newFrame = new JFrame("Add a New Trip");
-        JLabel label = new JLabel("This is a new window!");
-        newFrame.add(label);
-        newFrame.pack();
-        frame.setVisible(false);
-        newFrame.setVisible(true);
+        initAdd();
+        JPanel infoPanel = initTextFields(new JPanel());
+        change.add(infoPanel);
+        JButton button = new JButton("Create");
+        change.add(button);
+        button.addActionListener(c -> {
+            //TODO: create trip functionality on button click
+        });
     }
 
     public void editTrip(ActionEvent e) {
@@ -152,16 +162,30 @@ public class PlannerUI extends JFrame {
         newFrame.setVisible(true);
     }
 
-    public void showPrev(ActionEvent e) {
-        //TODO: add a button and a function show previous trips
-        JFrame newFrame = new JFrame("Previous trips");
-        JLabel label = new JLabel("This is a new window!");
-        newFrame.add(label);
-        newFrame.pack();
-        frame.setVisible(false);
-        newFrame.setVisible(true);
+    //EFFECTS: takes user to frame with previous trips
+    private void showPrev(ActionEvent e) {
+        prev = new JFrame("Previous trips");
+        initPrev();
+        JLabel label = new JLabel("Here is a list of your previous trips.");
+        JPanel tripContainer = new JPanel();
+        JButton button = new JButton("Close window");
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        Border paddedBorder = BorderFactory.createCompoundBorder(border,
+                createEmptyBorder(15, 30, 15, 30));
+        tripContainer.setBorder(paddedBorder);
+        tripContainer.setLayout(new GridLayout(0, 1));
+        button.addActionListener(c -> closePrev(c));
+
+        tripContainer.setBorder(paddedBorder);
+        for (Trip trip : history.getTrips()) {
+            tripContainer.add(new JLabel(trip.printTrip()));
+        }
+        prev.add(label);
+        prev.add(tripContainer, BorderLayout.CENTER);
+        prev.add(button);
     }
 
+    //EFFECTS: saves current/past trips into local JSON store
     public void saveTrip(ActionEvent e) {
         try {
             jsonWriter.open();
@@ -185,13 +209,19 @@ public class PlannerUI extends JFrame {
 
     }
 
-    public void loadTrip(ActionEvent e) {
+    //EFFECTS: loads current/past trips from local JSON store
+    private void loadTrip(ActionEvent e) {
         try {
             history = jsonReader.readTrips();
             jsonReader.changeDestination(CURRENT_STORE);
             current = jsonReader.readTrip();
             persist.setText("Loaded your current trip and previous trips!");
             persist.setVisible(true);
+            trip.setText("<html>Your trip " + current.getName() + " at " + current.getLocation() + " starts on "
+                    + current.getStartDate() + " and ends on " + current.getEndDate() + "." + " Your budget is "
+                    + current.getBudget().getBudget() + ", and you have " + current.getBudget().getRemaining()
+                    + " left to spend.<html>");
+            trip.setHorizontalAlignment(SwingConstants.LEFT);
         } catch (IOException err) {
             persist.setText("Unable to read from file.");
             persist.setVisible(true);
@@ -199,8 +229,65 @@ public class PlannerUI extends JFrame {
             persist.setText("Loaded your previous trips!");
             persist.setVisible(true);
         }
+    }
+
+    //EFFECTS: closes prev window and opens home window
+    private void closePrev(ActionEvent e) {
+        prev.setVisible(false);
+        frame.setVisible(true);
+    }
+
+    private void initPrev() {
+        prev.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        prev.setResizable(false);
+        prev.setLayout(new FlowLayout(FlowLayout.CENTER,0, 40));
+        prev.setPreferredSize(new Dimension(600, 800));
+        prev.setBackground(Color.blue);
+        prev.pack();
+        frame.setVisible(false);
+        prev.setVisible(true);
+    }
+
+    private void initAdd() {
+        change = new JFrame("Add a New Trip");
+        change.setLayout(new FlowLayout());
+        JLabel label = new JLabel("Enter the following information to begin your trip!");
+        change.add(label);
+        change.setPreferredSize(new Dimension(400, 600));
+        change.pack();
+        frame.setVisible(false);
+        change.setVisible(true);
 
     }
+
+    //initialize text fields corresponding and labels
+    private JPanel initTextFields(JPanel infoPanel) {
+        infoPanel.setLayout(new GridLayout(0, 1));
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(30,30, 10, 30));
+        JLabel label1 = new JLabel("Name of trip");
+        JLabel label2 = new JLabel("Location");
+        JLabel label3 = new JLabel("Start Date");
+        JLabel label4 = new JLabel("End Date");
+        JLabel label5 = new JLabel("Budget (must be over $100)");
+        name = new JTextField(2);
+        location = new JTextField(2);
+        startDate = new JTextField(2);
+        endDate = new JTextField(2);
+        budget = new JTextField(2);
+        infoPanel.add(label1);
+        infoPanel.add(name);
+        infoPanel.add(label2);
+        infoPanel.add(location);
+        infoPanel.add(label3);
+        infoPanel.add(startDate);
+        infoPanel.add(label4);
+        infoPanel.add(endDate);
+        infoPanel.add(label5);
+        infoPanel.add(budget);
+        return infoPanel;
+    }
+
+
 
 
 
