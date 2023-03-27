@@ -32,6 +32,7 @@ public class PlannerUI extends JFrame {
     JLabel welcome;
     JLabel trip = new JLabel("You are not currently on any trips. Press 'Add Trip' to start planning one.");
     JLabel persist;
+    JLabel error;
     JFrame frame;
     JFrame prev;
     JFrame create;
@@ -202,15 +203,9 @@ public class PlannerUI extends JFrame {
     private void saveTrip(ActionEvent e) {
         try {
             jsonWriter.open();
+            jsonWriter.changeDestination(HISTORY_STORE);
             jsonWriter.writeTrips(history);
             jsonWriter.close();
-
-            if (current == null) {
-                persist.setText("Saved trips!");
-                persist.setVisible(true);
-                turnOff();
-                return;
-            }
             jsonWriter.changeDestination(CURRENT_STORE);
             jsonWriter.open();
             jsonWriter.writeTrip(current);
@@ -220,6 +215,7 @@ public class PlannerUI extends JFrame {
             turnOff();
         } catch (FileNotFoundException err) {
             persist.setText("Unable to save history because file was not found");
+            persist.setVisible(true);
         }
 
     }
@@ -358,12 +354,12 @@ public class PlannerUI extends JFrame {
     private void initEditPanel() {
         change = new JFrame("Edit your current trip");
         JLabel label = new JLabel("Edit your budget or end your trip below!");
-        persist = new JLabel("");
+        error = new JLabel("");
         label.setHorizontalAlignment(JLabel.CENTER);
-        persist.setHorizontalAlignment(JLabel.CENTER);
+        error.setHorizontalAlignment(JLabel.CENTER);
         change.setPreferredSize(new Dimension(400, 400));
         change.add(label);
-        change.add(persist);
+        change.add(error);
         change.pack();
         frame.setVisible(false);
         change.setVisible(true);
@@ -376,6 +372,7 @@ public class PlannerUI extends JFrame {
         jpanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
         JButton end = new JButton("End Trip");
         JButton spend = new JButton("Add Spending");
+        JButton close = new JButton("Close");
         budget = createDoubleField();
         end.addActionListener(c -> {
             endTrip(c);
@@ -383,9 +380,14 @@ public class PlannerUI extends JFrame {
         spend.addActionListener(c -> {
             addSpending(c);
         });
+        close.addActionListener(c -> {
+            change.setVisible(false);
+            frame.setVisible(true);
+        });
         jpanel.add(budget);
         jpanel.add(spend);
         jpanel.add(end);
+        jpanel.add(close);
         return jpanel;
 
     }
@@ -394,8 +396,8 @@ public class PlannerUI extends JFrame {
     //EFFECTS: ends current trip and adds it to past trips
     private void endTrip(ActionEvent e) {
         if (current == null) {
-            persist.setText("You are not currently on a trip.");
-            persist.setVisible(true);
+            error.setText("You are not currently on a trip.");
+            error.setVisible(true);
         } else {
             Trip past = current;
             history.addTrip(past);
@@ -413,8 +415,8 @@ public class PlannerUI extends JFrame {
         Double selection = Double.parseDouble(text);
 
         if (selection > bug || selection + spent > bug) {
-            persist.setVisible(true);
-            persist.setText("You cannot spend more than your budget!");
+            error.setVisible(true);
+            error.setText("You cannot spend more than your budget!");
         } else {
             current.getBudget().addSpent(selection);
             setHomeText();

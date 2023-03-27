@@ -39,3 +39,12 @@ As a user, I want to be able to...
 - view all of my previous trips
 - save my previous list of trips and current trip that I am on
 - have the option to reload my saved previous trips and current trip
+
+## Instruction for Grader 
+
+- You can generate the first required action relating to X and Y's by pressing "Add Trip", and then going into "Edit Trip" and editing the budget. 
+- You can generate the second required action relating to X and Y's by ending the trip you are currently on. 
+- You can located my visual component on the home screen beside all the buttons 
+- You can save the state of my application by pressing the save button on the home screen
+- You can reload the state of my application by pressing the load button on the home screen 
+- For viewing all the X's and Y's, press the "View Past Trips" button. I added some trips already in loaded data :) 
