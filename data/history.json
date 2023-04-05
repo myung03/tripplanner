@@ -1,24 +1,13 @@
 {"past trips": [
     {
-        "endDate": "2023-09-03",
-        "name": "Summer",
-        "location": "Tokyo",
-        "startDate": "2023-08-20",
+        "endDate": "2023-09-15",
+        "name": "Spring Break",
+        "location": "Mexico",
+        "startDate": "2023-09-09",
         "budget": {
             "spent": 0,
-            "remaining": 0,
-            "budget": 0
-        }
-    },
-    {
-        "endDate": "2023-02-20",
-        "name": "Reading Week",
-        "location": "Cancun",
-        "startDate": "2023-02-10",
-        "budget": {
-            "spent": 0,
-            "remaining": 0,
-            "budget": 0
+            "remaining": 100.15,
+            "budget": 100.15
         }
     },
     {
@@ -29,7 +18,7 @@
         "budget": {
             "spent": 0,
             "remaining": 0,
-            "budget": 0
+            "budget": 1000
         }
     }
 ]}
