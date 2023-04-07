@@ -17,6 +17,7 @@ public class Trip implements Writable {
     private Budget budget;
 
     public Trip(String name, String location, String startDate, String endDate, double budget) {
+        EventLog.getInstance().logEvent(new Event("New trip has been created."));
         this.name = name;
         this.location = location;
         this.startDate = startDate;
@@ -26,6 +27,7 @@ public class Trip implements Writable {
 
     //EFFECTS: returns name of Trip
     public String getName() {
+
         return this.name;
     }
 
@@ -53,6 +55,7 @@ public class Trip implements Writable {
     //EFFECTS: changes name of Trip
     public void changeName(String name) {
         this.name = name;
+        EventLog.getInstance().logEvent(new Event("Trip name changed."));
     }
 
     //REQUIRES: must be in format YYYY-MM-DD
@@ -60,6 +63,7 @@ public class Trip implements Writable {
     //EFFECTS: changes startDate of Trip
     public void changeStartDate(String date) {
         this.startDate = date;
+        EventLog.getInstance().logEvent(new Event("Trip start date changed."));
     }
 
     //REQUIRES: must be in format YYYY-MM-DD
@@ -67,17 +71,20 @@ public class Trip implements Writable {
     //EFFECTS: changes endDate of Trip
     public void changeEndDate(String date) {
         this.endDate = date;
+        EventLog.getInstance().logEvent(new Event("Trip end date changed."));
     }
 
     //MODIFIES: this
     //EFFECTS: changes location of Trip
     public void changeLocation(String location) {
         this.location = location;
+        EventLog.getInstance().logEvent(new Event("Trip location changed."));
 
     }
 
     public void changeBudget(Double budget) {
         this.budget = new Budget(budget);
+        EventLog.getInstance().logEvent(new Event("Trip budget changed."));
     }
 
 

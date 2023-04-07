@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Trip;
 import model.Trips;
 import org.json.JSONException;
@@ -11,6 +13,8 @@ import javax.swing.border.Border;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -63,6 +67,12 @@ public class PlannerUI extends JFrame {
         frame.setLayout(new GridLayout(2, 1));
         panel = new JPanel();
 
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                printLog(EventLog.getInstance());
+            }
+        });
         initUI();
         createText();
         createButtons();
@@ -112,7 +122,7 @@ public class PlannerUI extends JFrame {
 
 
     //MODIFIES: this
-    //EFFECTS: create a panel for homes creen text and add it to frame
+    //EFFECTS: create a panel for home screen text and add it to frame
     private void createText() {
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new GridLayout(0, 1));
@@ -434,6 +444,14 @@ public class PlannerUI extends JFrame {
         timer.setRepeats(false);
         timer.start();
     }
+
+    //EFFECTS: prints log of Events that have occurred
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.getDescription());
+        }
+    }
+
 
 
 

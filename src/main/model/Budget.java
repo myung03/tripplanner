@@ -26,8 +26,10 @@ public class Budget implements Writable {
     //EFFECTS: adds amount to budget
     public Boolean addBudget(double amount) {
         if (amount <= 0) {
+            EventLog.getInstance().logEvent(new Event("Budget was not increased because amount less than 0."));
             return false;
         } else {
+            EventLog.getInstance().logEvent(new Event("Budget increased by " + amount));
             this.budget += amount;
             return true;
         }
@@ -38,8 +40,10 @@ public class Budget implements Writable {
     //EFFECTS: lowers budget by amount
     public Boolean lowerBudget(double amount) {
         if (amount <= 0 || budget - amount <= 0) {
+            EventLog.getInstance().logEvent(new Event("Budget was lowered by an invalid amount."));
             return false;
         } else {
+            EventLog.getInstance().logEvent(new Event("Budget decreased by " + amount));
             this.budget -= amount;
             return true;
         }
@@ -50,8 +54,10 @@ public class Budget implements Writable {
     //EFFECTS: adds amount to spent
     public Boolean addSpent(double amount) {
         if (amount <= 0) {
+            EventLog.getInstance().logEvent(new Event("Amount spent not increased because input <= 0."));
             return false;
         } else {
+            EventLog.getInstance().logEvent(new Event("Added " + amount + " to spendings"));
             this.spent += amount;
             return true;
         }

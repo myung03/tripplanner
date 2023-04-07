@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Trip;
 import model.Trips;
 import org.json.JSONException;
@@ -62,6 +64,7 @@ public class TripApp {
         }
 
         System.out.println("\nGoodbye!");
+        printLog(EventLog.getInstance());
 
     }
 
@@ -356,6 +359,13 @@ public class TripApp {
             System.out.println("Loaded your previous trips!");
         }
 
+    }
+
+    //EFFECTS: prints log of Events that have occurred
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.getDescription());
+        }
     }
 
 
