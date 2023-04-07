@@ -57,7 +57,7 @@ public class Budget implements Writable {
             EventLog.getInstance().logEvent(new Event("Amount spent not increased because input <= 0."));
             return false;
         } else {
-            EventLog.getInstance().logEvent(new Event("Added " + amount + " to spendings"));
+            EventLog.getInstance().logEvent(new Event("Added " + amount + " to spendings."));
             this.spent += amount;
             return true;
         }

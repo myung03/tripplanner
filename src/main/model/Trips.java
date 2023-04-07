@@ -22,6 +22,7 @@ public class Trips {
     //EFFECTS: creates a trip and adds it to trips; if successful return true
     public void addTrip(Trip trip) {
         trips.add(0, trip);
+        EventLog.getInstance().logEvent(new Event("Current trip moved to past trips."));
     }
 
     //EFFECTS: returns index of given trip

@@ -1,24 +1,11 @@
-{"past trips": [
-    {
-        "endDate": "2023-09-15",
-        "name": "Spring Break",
-        "location": "Mexico",
-        "startDate": "2023-09-09",
-        "budget": {
-            "spent": 0,
-            "remaining": 100.15,
-            "budget": 100.15
-        }
-    },
-    {
-        "endDate": "2023-03-20",
-        "name": "Spring Break",
-        "location": "London",
-        "startDate": "2023-03-10",
-        "budget": {
-            "spent": 0,
-            "remaining": 0,
-            "budget": 1000
-        }
+{"past trips": [{
+    "endDate": "2023-10-10",
+    "name": "Summer Vacation",
+    "location": "Cabo",
+    "startDate": "2023-09-20",
+    "budget": {
+        "spent": 0,
+        "remaining": 1000.15,
+        "budget": 1000.15
     }
-]}
+}]}

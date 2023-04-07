@@ -90,9 +90,6 @@ public class PlannerUI extends JFrame {
     //EFFECTS: initialize trips and JSON stores
     private void initUI() {
         history = new Trips();
-        Trip past = new Trip("Spring Break", "London",
-                "2023-03-10", "2023-03-20", 1000);
-        history.addTrip(past);
         jsonWriter = new JsonWriter(HISTORY_STORE);
         jsonReader = new JsonReader(HISTORY_STORE);
     }

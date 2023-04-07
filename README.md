@@ -48,3 +48,27 @@ As a user, I want to be able to...
 - You can save the state of my application by pressing the save button on the home screen
 - You can reload the state of my application by pressing the load button on the home screen 
 - For viewing all the X's and Y's, press the "View Past Trips" button. I added some trips already in loaded data :) 
+
+## Phase 4: Task 2
+- Create a new trip, edit the budget twice, and end the trip to get this output.
+
+New trip has been created. (Trip class)
+
+Added 100.0 to spendings. (Budget class)
+
+Added 10.0 to spendings.
+
+Current trip moved to past trips. (Trips class)
+
+## Phase 4: Task 3 
+
+In terms of refactoring, I think a good choice would be to split up the PlannerUI class. Currently, I have 3-4 different
+panels that are created from the PlannerUI class, each of which do very different things. In the interest of time, I chose to 
+just put them all into 1 class, but I think the code would be much cleaner and cohesive if I were to separate the frames 
+into their own classes and add them as fields for my main class. 
+
+Additionally, moving the "end trip" functionality into the Trips class rather than having it in the UI would be another sensible
+refactoring choice. If I were to add a Boolean field of "current" to the Trip class, it would allow me to keep all trip related functionality
+to the model and overall improve the cohesion of the program. It would also be useful if I wanted to add functionality in the future such that users
+can have an arbitrary number of current trips (since users can only be on 1 trip at a time right now). Overall these are the 2 main refactoring choices 
+that I believe would improve my design :)
